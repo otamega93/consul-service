@@ -1,0 +1,28 @@
+server:
+  port: 4469
+spring:
+  application:
+    name: consul-service
+  cloud:
+    bus:
+      enabled: false
+    consul:
+      enabled: false
+      host: localhost
+      port: 8500
+      discovery:
+        enabled: true
+        register: true
+        instanceId: ${spring.application.name}
+      config:
+        enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+         #include: "*"
+         include: refresh
+
+# failFast: false es para que, de no estar disponible consul, continue con el despliegue
+# Para deshabilitar las conexiones a consul (en caso de que este caido y quieras continuar con el despliegue) 
+# se debe colocar tanto el bus enabled como el consul enabled en false

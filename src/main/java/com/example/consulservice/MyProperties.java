@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @RefreshScope
 @Configuration
-@ConfigurationProperties("my")
+@ConfigurationProperties(prefix = "my", ignoreUnknownFields = true, ignoreInvalidFields = true)
 public class MyProperties {
 	
     private String prop;
