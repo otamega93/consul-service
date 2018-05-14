@@ -1,28 +1,36 @@
 server:
-  port: 4469
+  port: 4470
+  servlet:
+    context-path: /consul
 spring:
   application:
     name: consul-service
   cloud:
-    bus:
-      enabled: false
+#    bus:
+#      enabled: false
     consul:
-      enabled: false
+      enabled: true
       host: localhost
       port: 8500
       discovery:
+        fail-fast: true
         enabled: true
         register: true
         instanceId: ${spring.application.name}
+        healthCheckPath: /${server.servlet.context-path}/actuator/health
       config:
         enabled: true
+        fail-fast: true
+      retry:
+        max-attempts: 6
+        initial-interval: 4000
 management:
   endpoints:
     web:
       exposure:
          #include: "*"
-         include: refresh
+         include: refresh,health
 
-# failFast: false es para que, de no estar disponible consul, continue con el despliegue
-# Para deshabilitar las conexiones a consul (en caso de que este caido y quieras continuar con el despliegue) 
-# se debe colocar tanto el bus enabled como el consul enabled en false
+# fail-fast: false is so, when consul is not running/detected, it continues with the deployment. The enabled ones
+# are so it stops those functions. Even disabling all this functions, it's possible that 
+# spring.cloud.bus.enabled must be set to false

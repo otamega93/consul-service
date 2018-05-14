@@ -20,8 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @EnableDiscoveryClient
 public class ConsulServiceApplication {
-
-
+	
 	public static void main(String[] args) {
 		SpringApplication.run(ConsulServiceApplication.class, args);
 	}
